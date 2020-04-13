@@ -1,0 +1,35 @@
+{
+  "name": "covid19india-cli",
+  "version": "0.1.0",
+  "description": "CLI tool to track the status of Covid-19 in India",
+  "main": "index.js",
+  "bin": {
+    "covid19india": "index.js",
+    "covid-cli": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kousiksatish/covid19india-cli.git"
+  },
+  "keywords": [
+    "covid19india",
+    "covid19",
+    "corona",
+    "cli",
+    "corona-cli",
+    "covid19-cli",
+    "india"
+  ],
+  "author": "Kousik Satish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kousiksatish/covid19india-cli/issues"
+  },
+  "homepage": "https://github.com/kousiksatish/covid19india-cli#readme",
+  "dependencies": {
+    "yargs": "^15.3.1"
+  }
+}
