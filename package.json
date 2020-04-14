@@ -1,11 +1,11 @@
 {
-  "name": "covid19india-cli",
+  "name": "covidindia-cli",
   "version": "0.1.0",
   "description": "CLI tool to track the status of Covid-19 in India",
   "main": "index.js",
   "bin": {
-    "covid19india": "index.js",
-    "covid-cli": "index.js"
+    "covidindia": "index.js",
+    "covidindia-cli": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
