@@ -20,7 +20,7 @@ const inputCommands = parsedYargs._;
 if (inputCommands.length < 1) {
     getAllStates();
 } else if (inputCommands.length < 2) {
-    getSpecificState(inputCommands[1]);
+    getSpecificState(inputCommands[0]);
 }
 
 function getAllStates() {
@@ -40,4 +40,19 @@ function getAllStates() {
 
 function getSpecificState(stateName) {
     console.log(`Fetching info for ${stateName}...`);
+    axios.get(`https://api.covid19india.org/data.json`)
+        .then((response) => {
+            if (!(response && response.data && response.data.statewise)) {
+                console.log(`Unidentified format. Please raise an issue.`);
+                return;
+            }
+            const stateWiseData = response.data.statewise;
+            const successfullyPrinted = dataToTable(stateWiseData, stateName);
+            if (!successfullyPrinted) {
+                console.log('Invalid state name! Please check the input!')
+            }
+        })
+        .catch((err) => {
+            console.log(`Error occured while fetching data! ${err}`);
+        });
 }

@@ -1,7 +1,7 @@
 const Table = require('cli-table3');
 const colors = require('colors/safe');
 
-module.exports = (stateWiseData) => {
+module.exports = (stateWiseData, stateName) => {
     const table = new Table({
         head: [
             colors.cyan('Code'),
@@ -24,6 +24,18 @@ module.exports = (stateWiseData) => {
     ])
 
     stateWiseData = stateWiseData.slice(1);
+    if (stateName !== undefined) {
+        const reqdStateData 
+            = stateWiseData.find((stateData) => {
+                return stateData.state.toLowerCase() === stateName.toLowerCase();
+            });
+        if (reqdStateData !== undefined) {
+            stateWiseData = [ reqdStateData ];
+        } else {
+            return false;
+        }
+    }
+    if (stateWiseData)
     stateWiseData.map((state) => {
         table.push([
             `${colors.cyan(state.statecode)}`,
@@ -36,4 +48,5 @@ module.exports = (stateWiseData) => {
     });
 
     console.log(table.toString());
+    return true;
 }
