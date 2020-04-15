@@ -4,17 +4,18 @@ const colors = require('colors/safe');
 module.exports = (stateWiseData) => {
     const table = new Table({
         head: [
+            colors.cyan('Code'),
             colors.white('State Name'),
             colors.red('Confirmed'),
             colors.blue('Active'),
             colors.green('Recovered'),
             colors.gray('Deceased')
         ],
-        colWidths: ['400', '100', '100', '100', '100']
     });
 
     totalRow = stateWiseData.slice(0, 1)[0];
     table.push([
+        colors.bold(`${colors.cyan(totalRow.statecode)}`),
         colors.bold(`${colors.underline(totalRow.state)}`),
         colors.bold(`${totalRow.confirmed} ${colors.red('↑'+totalRow.deltaconfirmed)}`,),
         colors.bold(`${totalRow.active}`),
@@ -25,6 +26,7 @@ module.exports = (stateWiseData) => {
     stateWiseData = stateWiseData.slice(1);
     stateWiseData.map((state) => {
         table.push([
+            `${colors.cyan(state.statecode)}`,
             `${colors.underline(state.state)}`,
             `${state.confirmed} ${colors.red('↑'+state.deltaconfirmed)}`,
             `${state.active}`,
