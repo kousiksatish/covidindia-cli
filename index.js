@@ -6,10 +6,10 @@ const dataToTable = require('./utils/dataToTable.js')
 
 const parsedYargs = yargs
     .command('$0', 'All states information')
-    .command('[state]', 'Specific State Information', (yargs) => {
+    .command('[State Code/Name]', 'Specific state info', (yargs) => {
         yargs.positional('state', {
             type: 'string',
-            describe: 'State for which info is needed'
+            describe: 'Case insensitive state name or code for which info is needed'
         })
     })
     .help()
@@ -38,8 +38,8 @@ function getAllStates() {
         });
 }
 
-function getSpecificState(stateName) {
-    console.log(`Fetching info for ${stateName}...`);
+function getSpecificState(stateNameOrCode) {
+    console.log(`Fetching info for ${stateNameOrCode}...`);
     axios.get(`https://api.covid19india.org/data.json`)
         .then((response) => {
             if (!(response && response.data && response.data.statewise)) {
@@ -47,9 +47,9 @@ function getSpecificState(stateName) {
                 return;
             }
             const stateWiseData = response.data.statewise;
-            const successfullyPrinted = dataToTable(stateWiseData, stateName);
+            const successfullyPrinted = dataToTable(stateWiseData, stateNameOrCode);
             if (!successfullyPrinted) {
-                console.log('Invalid state name! Please check the input!')
+                console.log('Invalid state name or code! Please check the input!')
             }
         })
         .catch((err) => {
