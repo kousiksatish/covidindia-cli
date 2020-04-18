@@ -19,15 +19,15 @@ npx covidindia-cli
 ### All States
 
 ```sh
-# Display data for all countries.
+# Display data for all states.
 covidindia-cli
 ```
 
 ### Single State
 
 ```sh
-# Display data for given country.
-covidindia-cli <countryName>
+# Display data for given state.
+covidindia-cli <stateNameOrCode>
 
 # Display data for given state i.e. Karnataka.
 covidindia-cli ka
