@@ -47,8 +47,10 @@ function getSpecificState(stateNameOrCode) {
                 return;
             }
             const stateWiseData = response.data.statewise;
-            const successfullyPrinted = dataToTable(stateWiseData, stateNameOrCode);
-            if (!successfullyPrinted) {
+            const reqdStateName = validateStateNameOrCodeAndGetStateName(stateWiseData, stateNameOrCode);
+            if (reqdStateName !== undefined) {
+                dataToTable(stateWiseData, reqdStateName);
+            } else {
                 console.log('Invalid state name or code! Please check the input!')
             }
         })
@@ -56,3 +58,22 @@ function getSpecificState(stateNameOrCode) {
             console.log(`Error occured while fetching data! ${err}`);
         });
 }
+
+function validateStateNameOrCodeAndGetStateName(statewiseData, stateNameOrCode) {
+    let reqdStateName = undefined;
+
+    if (stateNameOrCode !== undefined) {
+        const reqdStateData 
+            = statewiseData.find((stateData) => {
+                return stateNameOrCode.length === 2
+                    ? stateData.statecode.toLowerCase() === stateNameOrCode.toLowerCase()
+                    : stateData.state.toLowerCase() === stateNameOrCode.toLowerCase();
+            });
+        if (reqdStateData !== undefined) {
+            reqdStateName = reqdStateData.state;
+        }
+    }
+
+    return reqdStateName;
+}
+
