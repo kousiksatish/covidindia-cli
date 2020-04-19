@@ -13,7 +13,7 @@ module.exports = (stateWiseData, stateNameOrCode) => {
         ],
     });
 
-    totalRow = stateWiseData.slice(0, 1)[0];
+    const totalRow = stateWiseData.slice(0, 1)[0];
     table.push([
         '',
         colors.bold(`${colors.underline(totalRow.state)}`),
