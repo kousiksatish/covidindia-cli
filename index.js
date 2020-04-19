@@ -59,7 +59,7 @@ function getSpecificState(stateNameOrCode) {
                 if (parsedYargs["district"]) {
                     fetchAndDisplayDistrictDetails(reqdStateName);
                 } else {
-                    console.log(`Run '${parsedYargs.$0} ${stateNameOrCode} -d' for district level details`);
+                    console.log(`Run 'covidindia-cli ${stateNameOrCode} -d' for district level details`);
                 }
             } else {
                 console.log('Invalid state name or code! Please check the input!')

@@ -1,6 +1,6 @@
 {
   "name": "covidindia-cli",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CLI tool to real time access to Covid-19 stats for Indian states on your terminal",
   "main": "index.js",
   "bin": {

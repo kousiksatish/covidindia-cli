@@ -59,6 +59,8 @@ covidindia-cli mh --district
 covidindia-cli mh -d
 ```
 
+Please note that you can also execute the above cli with just ```covidindia``` instead of ```covidindia-cli```
+
 ## Notes
 
 Data is fetched from https://api.covid19india.org
