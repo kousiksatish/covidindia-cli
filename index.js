@@ -3,6 +3,7 @@
 const yargs = require('yargs');
 const axios = require('axios');
 const dataToTable = require('./utils/dataToTable.js')
+const districtDataToTable = require('./utils/districtDataToTable.js')
 
 const parsedYargs = yargs
     .command('$0', 'All states information')
@@ -50,6 +51,7 @@ function getSpecificState(stateNameOrCode) {
             const reqdStateName = validateStateNameOrCodeAndGetStateName(stateWiseData, stateNameOrCode);
             if (reqdStateName !== undefined) {
                 dataToTable(stateWiseData, reqdStateName);
+                fetchAndDisplayDistrictDetails(reqdStateName);
             } else {
                 console.log('Invalid state name or code! Please check the input!')
             }
@@ -77,3 +79,25 @@ function validateStateNameOrCodeAndGetStateName(statewiseData, stateNameOrCode) 
     return reqdStateName;
 }
 
+function fetchAndDisplayDistrictDetails(stateName) {
+    console.log(`Fetching district level info for ${stateName}...`);
+    axios.get('https://api.covid19india.org/v2/state_district_wise.json')
+        .then((response) => {
+            if (!(response && response.data && response.data.length > 0)) {
+                console.log(`Unidentified format. Please raise an issue.`);
+                return;
+            }
+            const reqdDistrictData = response.data.find((state) => {
+                return state.state === stateName;
+            })
+
+            if (reqdDistrictData !== undefined) {
+                districtDataToTable(reqdDistrictData);
+            } else {
+                console.log(`District information not found for requested state. Please raise an issue.`);
+            }
+        })
+        .catch((err) => {
+            console.log(`Error occured while fetching district level data! ${err}`);
+        });
+}
