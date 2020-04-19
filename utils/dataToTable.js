@@ -40,10 +40,10 @@ module.exports = (stateWiseData, stateName) => {
         table.push([
             `${colors.cyan(state.statecode)}`,
             `${colors.underline(state.state)}`,
-            `${state.confirmed} ${colors.red('↑'+state.deltaconfirmed)}`,
+            `${state.confirmed} ${state.deltaconfirmed > 0 ? colors.red('↑'+state.deltaconfirmed) : ''}`,
             `${state.active}`,
-            `${state.recovered} ${colors.blue('↑'+state.deltarecovered)}`,
-            `${state.deaths} ${colors.gray('↑'+state.deltadeaths)}`
+            `${state.recovered} ${state.deltarecovered > 0 ? colors.blue('↑'+state.deltarecovered) : ''}`,
+            `${state.deaths} ${state.deltadeaths > 0 ? colors.gray('↑'+state.deltadeaths) : ''}`
         ]);
     });
 
