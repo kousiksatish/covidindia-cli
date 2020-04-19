@@ -38,6 +38,15 @@ covidindia-cli karnataka
 covidindia-cli mh
 # or
 covidindia-cli maharashtra
+```
+
+### Single State with district level details
+
+```sh
+# Display district level data for given state.
+covidindia-cli <stateNameOrCode> --district
+# or
+covidindia-cli <stateNameOrCode> -d
 
 # Display district level data for given state i.e. Karnataka
 covidindia-cli ka --district
