@@ -13,6 +13,11 @@ const parsedYargs = yargs
             describe: 'Case insensitive state name or code for which info is needed'
         })
     })
+    .option('district', {
+        alias: 'd',
+        desc: `Display of district level details (Use only in state mode)`,
+        nargs: 0
+    })
     .help()
     .argv
 
@@ -51,7 +56,11 @@ function getSpecificState(stateNameOrCode) {
             const reqdStateName = validateStateNameOrCodeAndGetStateName(stateWiseData, stateNameOrCode);
             if (reqdStateName !== undefined) {
                 dataToTable(stateWiseData, reqdStateName);
-                fetchAndDisplayDistrictDetails(reqdStateName);
+                if (parsedYargs["district"]) {
+                    fetchAndDisplayDistrictDetails(reqdStateName);
+                } else {
+                    console.log(`Run '${parsedYargs.$0} ${stateNameOrCode} -d' for district level details`);
+                }
             } else {
                 console.log('Invalid state name or code! Please check the input!')
             }
