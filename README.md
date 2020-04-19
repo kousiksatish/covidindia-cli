@@ -29,15 +29,25 @@ covidindia-cli
 # Display data for given state.
 covidindia-cli <stateNameOrCode>
 
-# Display data for given state i.e. Karnataka.
+# Display data for given state i.e. Karnataka
 covidindia-cli ka
 # or
 covidindia-cli karnataka
 
-# Display data for given state i.e. Tamil Nadu.
+# Display data for given state i.e. Maharashtra
 covidindia-cli mh
 # or
 covidindia-cli maharashtra
+
+# Display district level data for given state i.e. Karnataka
+covidindia-cli ka --district
+# or
+covidindia-cli ka -d
+
+# Display district level data for given state i.e. Maharashtra
+covidindia-cli mh --district
+# or
+covidindia-cli mh -d
 ```
 
 ## Notes
