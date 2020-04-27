@@ -21,7 +21,9 @@ const parsedYargs = yargs
     .option('sort', {
         alias: 's',
         desc: `Sort by column`,
-        nargs: 1
+        nargs: 1,
+        choices: ['confirmed', 'active', 'recovered', 'deceased'],
+        default: 'active'
     })
     .help()
     .argv

@@ -37,7 +37,8 @@ module.exports = (stateWiseData, stateName, sortBy) => {
     }
 
     if (sortBy !== undefined) {
-        stateWiseData.sort(getSortByComparatorFn(sortBy));
+        const sortByKey = sortBy.toLowerCase() === 'deceased' ? 'deaths' : sortBy.toLowerCase()
+        stateWiseData.sort(getSortByComparatorFn(sortByKey));
     }
     if (stateWiseData) 
     stateWiseData.map((state) => {
