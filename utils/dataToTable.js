@@ -1,7 +1,7 @@
 const Table = require('cli-table3');
 const colors = require('colors/safe');
 
-module.exports = (stateWiseData, stateName) => {
+module.exports = (stateWiseData, stateName, sortBy) => {
     const table = new Table({
         head: [
             colors.cyan('Code'),
@@ -35,6 +35,11 @@ module.exports = (stateWiseData, stateName) => {
             return false;
         }
     }
+
+    if (sortBy !== undefined) {
+        const sortByKey = sortBy.toLowerCase() === 'deceased' ? 'deaths' : sortBy.toLowerCase()
+        stateWiseData.sort(getSortByComparatorFn(sortByKey));
+    }
     if (stateWiseData) 
     stateWiseData.map((state) => {
         table.push([
@@ -49,4 +54,10 @@ module.exports = (stateWiseData, stateName) => {
 
     console.log(table.toString());
     return true;
+}
+
+function getSortByComparatorFn(key) {
+    return (a, b) => {
+        return parseInt(b[key]) - parseInt(a[key]);
+    }
 }

@@ -18,6 +18,13 @@ const parsedYargs = yargs
         desc: `Display of district level details (Use only in state mode)`,
         nargs: 0
     })
+    .option('sort', {
+        alias: 's',
+        desc: `Sort by column`,
+        nargs: 1,
+        choices: ['confirmed', 'active', 'recovered', 'deceased'],
+        default: 'active'
+    })
     .help()
     .argv
 
@@ -37,7 +44,7 @@ function getAllStates() {
                 return;
             }
             const stateWiseData = response.data.statewise;
-            dataToTable(stateWiseData);
+            dataToTable(stateWiseData, undefined, parsedYargs["sort"]);
         })
         .catch((err) => {
             console.log(`Error occured while fetching data! ${err}`);
