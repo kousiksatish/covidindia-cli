@@ -21,6 +21,9 @@ npx covidindia-cli
 ```sh
 # Display data for all states.
 covidindia-cli
+
+# Display data for all states sorted by deceased count.
+covidindia-cli --sort deceased
 ```
 
 ### Single State
