@@ -76,7 +76,7 @@ function getSpecificState(stateNameOrCode) {
             if (reqdStateName !== undefined) {
                 const options = getDefaultOptionsForStatesData();
                 options.stateName = reqdStateName;
-                dataToTable(stateWiseData, reqdStateName);
+                dataToTable(stateWiseData, options);
                 if (parsedYargs["district"]) {
                     fetchAndDisplayDistrictDetails(reqdStateName);
                 } else {
