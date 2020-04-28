@@ -40,6 +40,12 @@ module.exports = (stateWiseData, options) => {
         const sortByKey = options.sortBy.toLowerCase() === 'deceased' ? 'deaths' : options.sortBy.toLowerCase()
         stateWiseData.sort(getSortByComparatorFn(sortByKey));
     }
+    if (options.head !== undefined) {
+        stateWiseData = stateWiseData.slice(0, options.head);
+    }
+    if (options.tail !== undefined) {
+        stateWiseData = stateWiseData.slice(-options.tail);
+    }
     if (stateWiseData) 
     stateWiseData.map((state) => {
         table.push([
