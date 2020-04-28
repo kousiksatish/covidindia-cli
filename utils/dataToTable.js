@@ -1,7 +1,7 @@
 const Table = require('cli-table3');
 const colors = require('colors/safe');
 
-module.exports = (stateWiseData, stateName, sortBy) => {
+module.exports = (stateWiseData, options) => {
     const table = new Table({
         head: [
             colors.cyan('Code'),
@@ -24,10 +24,10 @@ module.exports = (stateWiseData, stateName, sortBy) => {
     ])
 
     stateWiseData = stateWiseData.slice(1);
-    if (stateName !== undefined) {
+    if (options.stateName !== undefined) {
         const reqdStateData 
             = stateWiseData.find((stateData) => {
-                return stateData.state === stateName;
+                return stateData.state === options.stateName;
             });
         if (reqdStateData !== undefined) {
             stateWiseData = [ reqdStateData ];
@@ -36,9 +36,15 @@ module.exports = (stateWiseData, stateName, sortBy) => {
         }
     }
 
-    if (sortBy !== undefined) {
-        const sortByKey = sortBy.toLowerCase() === 'deceased' ? 'deaths' : sortBy.toLowerCase()
+    if (options.sortBy !== undefined) {
+        const sortByKey = options.sortBy.toLowerCase() === 'deceased' ? 'deaths' : options.sortBy.toLowerCase()
         stateWiseData.sort(getSortByComparatorFn(sortByKey));
+    }
+    if (options.head !== undefined) {
+        stateWiseData = stateWiseData.slice(0, options.head);
+    }
+    if (options.tail !== undefined) {
+        stateWiseData = stateWiseData.slice(-options.tail);
     }
     if (stateWiseData) 
     stateWiseData.map((state) => {

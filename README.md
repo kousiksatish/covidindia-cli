@@ -62,6 +62,16 @@ covidindia-cli mh --district
 covidindia-cli mh -d
 ```
 
+### Other features
+
+```sh
+# Display only top 10 results. Can be used in combination with --sort.
+covidindia-cli --head 10
+
+# Display only bottom 10 results. Can be used in combination with --sort.
+covidindia-cli -h 10
+```
+
 Please note that you can also execute the above cli with just ```covidindia``` instead of ```covidindia-cli```
 
 ## Notes

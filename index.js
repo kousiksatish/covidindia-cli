@@ -25,6 +25,18 @@ const parsedYargs = yargs
         choices: ['confirmed', 'active', 'recovered', 'deceased'],
         default: 'active'
     })
+    .options('head', {
+        alias: 'h',
+        desc: 'Show only top <input> number of results',
+        nargs: 1,
+        type: 'number'
+    })
+    .options('tail', {
+        alias: 't',
+        desc: 'Show only last <input> number of results',
+        nargs: 1,
+        type: 'number',
+    })
     .help()
     .argv
 
@@ -44,7 +56,11 @@ function getAllStates() {
                 return;
             }
             const stateWiseData = response.data.statewise;
-            dataToTable(stateWiseData, undefined, parsedYargs["sort"]);
+            const options = getDefaultOptionsForStatesData();
+            options.sortBy = parsedYargs["sort"];
+            options.head = parsedYargs["head"];
+            options.tail = parsedYargs["tail"];
+            dataToTable(stateWiseData, options);
         })
         .catch((err) => {
             console.log(`Error occured while fetching data! ${err}`);
@@ -62,7 +78,9 @@ function getSpecificState(stateNameOrCode) {
             const stateWiseData = response.data.statewise;
             const reqdStateName = validateStateNameOrCodeAndGetStateName(stateWiseData, stateNameOrCode);
             if (reqdStateName !== undefined) {
-                dataToTable(stateWiseData, reqdStateName);
+                const options = getDefaultOptionsForStatesData();
+                options.stateName = reqdStateName;
+                dataToTable(stateWiseData, options);
                 if (parsedYargs["district"]) {
                     fetchAndDisplayDistrictDetails(reqdStateName);
                 } else {
@@ -116,4 +134,13 @@ function fetchAndDisplayDistrictDetails(stateName) {
         .catch((err) => {
             console.log(`Error occured while fetching district level data! ${err}`);
         });
+}
+
+function getDefaultOptionsForStatesData() {
+    return {
+        stateName: undefined,
+        sortBy: 'active',
+        head: undefined,
+        tail: undefined
+    };
 }
