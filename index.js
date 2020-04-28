@@ -54,7 +54,9 @@ function getAllStates() {
                 return;
             }
             const stateWiseData = response.data.statewise;
-            dataToTable(stateWiseData, undefined, parsedYargs["sort"]);
+            const options = getDefaultOptionsForStatesData();
+            options.sortBy = parsedYargs["sort"];
+            dataToTable(stateWiseData, options);
         })
         .catch((err) => {
             console.log(`Error occured while fetching data! ${err}`);
@@ -72,6 +74,8 @@ function getSpecificState(stateNameOrCode) {
             const stateWiseData = response.data.statewise;
             const reqdStateName = validateStateNameOrCodeAndGetStateName(stateWiseData, stateNameOrCode);
             if (reqdStateName !== undefined) {
+                const options = getDefaultOptionsForStatesData();
+                options.stateName = reqdStateName;
                 dataToTable(stateWiseData, reqdStateName);
                 if (parsedYargs["district"]) {
                     fetchAndDisplayDistrictDetails(reqdStateName);
@@ -126,4 +130,13 @@ function fetchAndDisplayDistrictDetails(stateName) {
         .catch((err) => {
             console.log(`Error occured while fetching district level data! ${err}`);
         });
+}
+
+function getDefaultOptionsForStatesData() {
+    return {
+        stateName: undefined,
+        sortBy: 'active',
+        head: undefined,
+        tail: undefined
+    };
 }
