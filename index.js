@@ -28,12 +28,14 @@ const parsedYargs = yargs
     .options('head', {
         alias: 'h',
         desc: 'Show only top <input> number of results',
-        nargs: 1
+        nargs: 1,
+        type: 'number'
     })
     .options('tail', {
         alias: 't',
         desc: 'Show only last <input> number of results',
-        nargs: 1
+        nargs: 1,
+        type: 'number',
     })
     .help()
     .argv
@@ -56,6 +58,8 @@ function getAllStates() {
             const stateWiseData = response.data.statewise;
             const options = getDefaultOptionsForStatesData();
             options.sortBy = parsedYargs["sort"];
+            options.head = parsedYargs["head"];
+            options.tail = parsedYargs["tail"];
             dataToTable(stateWiseData, options);
         })
         .catch((err) => {
