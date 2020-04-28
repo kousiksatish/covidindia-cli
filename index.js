@@ -25,6 +25,16 @@ const parsedYargs = yargs
         choices: ['confirmed', 'active', 'recovered', 'deceased'],
         default: 'active'
     })
+    .options('head', {
+        alias: 'h',
+        desc: 'Show only top <input> number of results',
+        nargs: 1
+    })
+    .options('tail', {
+        alias: 't',
+        desc: 'Show only last <input> number of results',
+        nargs: 1
+    })
     .help()
     .argv
 
